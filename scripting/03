@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 menu="
 _______________________\n
 Choose: \n
@@ -15,9 +18,6 @@ separ1="
 "
 separ2="
 -----------------------\n
-"
-separ3="
-=======================\n
 "
 
 helep2="
@@ -46,7 +46,7 @@ do
 		'1')
 			echo -e $helep
 			n=0
-			cd ../network
+			cd "$REPO_ROOT/network" || exit 1
 			ls
 			echo -e $separ2
 			while [ $n = 0 ]
@@ -88,7 +88,7 @@ do
         	"2")
 			echo -e $helep2
 			s=0
-			cd ../system
+			cd "$REPO_ROOT/system" || exit 1
 			ls
 			echo -e $separ2
 			while [ $s = 0 ]
@@ -113,7 +113,7 @@ do
         	"3")
 			echo -e $helep
 			s=0
-			cd ../scripting
+			cd "$REPO_ROOT/scripting" || exit 1
 			ls
 			echo -e $separ2
 			while [ $s = 0 ]
@@ -133,28 +133,19 @@ do
 					[0][2])
 						echo -e $separ1
 						cat $scripting
-						echo -e "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nUSE WM\n-----------------------\n"
+						echo -e "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nReview before running. This script can modify local users.\n-----------------------\n"
 						;;
 					[0][3])
-						echo -e "
-         ／＞　　フ 💕
-         | 　_　 _ l 💕 I'M FINSH
-        ／ヽミ＿xノ
-       /　　　　 |
-      /　 ヽ　　 ﾉ
-     │　　|　|　|
-／￣|　　 |　|　|
-| (￣ヽ＿_ヽ_)__)
-＼二つ
-							"
-						open .Final.mp3
+						echo -e $separ1
+						cat $scripting
+						echo -e $separ1
 						;;
 					"B")
 						echo -e $menu
 						break
 						;;
 					*)
-						echo -e $helep1
+						echo -e $helep
 				esac
 			done
             		;;
