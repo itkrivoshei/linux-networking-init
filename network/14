@@ -1,1 +1,1 @@
-python -c "import sys;lines=sys.stdin.read();print lines.replace('192.168.50.10','46.19.122.85')" < /etc/hosts > ex14
+sed 's/192\.168\.50\.10/46.19.122.85/g' /etc/hosts > ex14
