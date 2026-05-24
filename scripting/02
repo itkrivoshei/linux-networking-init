@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "WARNING: this archived exercise can delete local users."
+echo "Set ALLOW_USER_DELETE=1 to continue."
+if [ "${ALLOW_USER_DELETE:-}" != "1" ]; then
+	echo "Blocked by safety guard."
+	exit 1
+fi
+
 x=0
 while [ $x = 0 ]
 do
@@ -20,7 +27,7 @@ do
 			read answ
 			if [[ $answ = "Y" || $answ = "y" ]]
 			then
-				pgrep -u $del | while read PID; do sudo kill $del; done
+				pgrep -u $del | while read PID; do sudo kill "$PID"; done
 				sudo userdel -fr $del
 				echo "$del HAS BIN DESTROYED"
 			elif [[ $answ = "N" || $answ = "n" ]]
