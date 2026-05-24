@@ -1,0 +1,32 @@
+name: Shell checks
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  syntax:
+    name: Bash syntax
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate shell syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mapfile -d '' files < <(find network system scripting -type f ! -name '.*' -print0)
+
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No shell files found."
+            exit 0
+          fi
+
+          bash -n "${files[@]}"
