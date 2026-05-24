@@ -7,44 +7,37 @@ if [ "${ALLOW_USER_DELETE:-}" != "1" ]; then
 	exit 1
 fi
 
-x=0
-while [ $x = 0 ]
-do
-	echo "To remove \$user log in root | Сontinue [Y/n]?"
-	read YN
-	case "$YN" in
-		[yY][eE][sS]|[yY])
-			if [ $(cat /etc/passwd | grep home | awk -F ':' '{ print $1 }' | grep -v '#' | cat -n) ]
-			then
-				echo "Whom to destroy? (Сhoosea numbr)"
-				read user
-				del=$(cat /etc/passwd | grep -q home | awk -F ':' '{ print $1 }' | cat -n | grep $user | awk -F ' ' '{ print $2 }')
-			else
-				echo "NO \$users, only \$root"
-				exit
-			fi
-			echo "Do you really want to destroy | $del | Сontinue [Y/n]?"
-			read answ
-			if [[ $answ = "Y" || $answ = "y" ]]
-			then
-				pgrep -u $del | while read PID; do sudo kill "$PID"; done
-				sudo userdel -fr $del
-				echo "$del HAS BIN DESTROYED"
-			elif [[ $answ = "N" || $answ = "n" ]]
-			then
-				echo "$del HAS BIN SAVED"
-			else
-				echo "What?"
-			fi
+users=$(awk -F ':' '$6 ~ /^\/home\// { print $1 }' /etc/passwd)
+if [ -z "$users" ]; then
+	echo "No regular users found."
+	exit 0
+fi
 
-			x=1
+echo "Available users:"
+printf '%s\n' "$users" | nl -w1 -s' '
+
+echo "Choose a user number to delete:"
+read -r user_number
+
+del=$(printf '%s\n' "$users" | sed -n "${user_number}p")
+if [ -z "$del" ]; then
+	echo "Invalid user selection."
+	exit 1
+fi
+
+echo "Do you really want to delete user '$del'? Continue [Y/n]?"
+read -r answer
+case "$answer" in
+	[yY][eE][sS]|[yY])
+		pgrep -u "$del" | while read -r pid; do sudo kill "$pid"; done
+		sudo userdel -fr "$del"
+		echo "$del has been deleted."
 		;;
-		[Nn][Oo]|[nN])
-			echo "Okay"
-			x=1
+	[Nn][Oo]|[nN])
+		echo "$del was not changed."
 		;;
-		*)
-			echo "To continue press Y or N"
+	*)
+		echo "Cancelled."
+		exit 1
 		;;
-	esac
-done
+esac
