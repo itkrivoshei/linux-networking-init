@@ -1,55 +1,79 @@
-# Linux Networking Init
+# Linux Networking Shell Basics
 
-Archived 42 School / School 21 project focused on UNIX/Linux networking, system administration, and shell scripting fundamentals.
+[![Shell checks](https://img.shields.io/github/actions/workflow/status/itkrivoshei/linux-networking-shell-basics/shell.yml?branch=master&style=flat-square&label=shell%20checks)](https://github.com/itkrivoshei/linux-networking-shell-basics/actions/workflows/shell.yml)
+[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square)](LICENSE)
+[![Shell](https://img.shields.io/badge/shell-Bash-lightgrey?style=flat-square)](https://www.gnu.org/software/bash/)
 
-## Overview
+Archived UNIX/Linux networking, system administration, and shell scripting exercises from the 42 School / School 21 curriculum.
 
-This repository contains early command-line exercises completed as part of the 42 School / School 21 curriculum.
+## Stack
 
-The project is organized around basic networking commands, UNIX/Linux system administration tasks, and shell scripting exercises. It is kept public as part of my early engineering background before moving into modern frontend engineering, automation, and DevOps-focused work.
+- Bash
+- UNIX/Linux command-line tools
+- Basic networking utilities: `ifconfig`, `netstat`, `arp`, `nslookup`, `host`, `whois`, `traceroute`
 
 ## Scope
 
-The project is divided into three sections:
+```txt
+network/    Networking command exercises
+system/     System administration command exercises
+scripting/  Small Bash scripts and an interactive exercise menu
+```
 
-- Network — networking commands, DNS lookup, routing, ARP, traceroute, and interface inspection
-- System — system administration commands, services, users, logs, disks, cron, and SSH basics
-- Scripting — shell scripts for command-line automation and task navigation
+The repository is kept as historical learning material. Some commands reflect the original bootcamp environment and may be macOS/BSD-specific or outdated on modern Linux systems.
 
-## Skills Demonstrated
+## Install
 
-- UNIX/Linux command-line usage
-- Basic networking diagnostics
-- DNS, routing, ARP, and traceroute usage
-- Shell scripting with Bash
-- System service inspection
-- User and process management basics
-- Log, disk, and package inspection
-- Troubleshooting through terminal commands
+No package installation is required.
 
-## Project Structure
+Clone the repository:
 
-    .
-    ├── network/
-    ├── scripting/
-    ├── system/
-    ├── LICENSE
-    └── README.md
+```bash
+git clone https://github.com/itkrivoshei/linux-networking-shell-basics.git
+cd linux-networking-shell-basics
+```
 
-## Notes
+## Run
 
-This is an archived educational repository.
+Most files are small command exercises and can be inspected directly:
 
-Some scripts reflect old bootcamp-style constraints and are not intended to represent modern production-grade DevOps scripts. They are kept as historical learning material showing early exposure to Linux, networking, and shell-based automation.
+```bash
+cat network/01
+cat system/01
+cat scripting/01
+```
 
-Do not run administrative scripts from this repository on a real system without reviewing them first.
+Run the interactive menu:
 
-## Status
+```bash
+cd scripting
+./03
+```
 
-This repository is archived and not actively maintained.
+Run an individual script:
 
-It is kept public to show foundational experience with Linux, networking, system administration, and shell scripting.
+```bash
+cd scripting
+./01
+```
+
+`scripting/02` can delete local users. It is blocked by default and should not be run on a real system without review. To run it intentionally:
+
+```bash
+cd scripting
+ALLOW_USER_DELETE=1 ./02
+```
+
+## Verify
+
+Check Bash syntax locally:
+
+```bash
+bash -n scripting/01 scripting/02 scripting/03
+```
+
+The repository also includes a GitHub Actions workflow that runs Bash syntax checks for files under `network/`, `system/`, and `scripting/`.
 
 ## License
 
-This project is licensed under the GPL-3.0 License. See the LICENSE file for details.
+Licensed under the [GPL-3.0 License](LICENSE).
