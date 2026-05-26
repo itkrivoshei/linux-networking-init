@@ -1,79 +1,61 @@
 # Linux Networking Shell Basics
 
-[![Shell checks](https://img.shields.io/github/actions/workflow/status/itkrivoshei/linux-networking-shell-basics/shell.yml?branch=master&style=flat-square&label=shell%20checks)](https://github.com/itkrivoshei/linux-networking-shell-basics/actions/workflows/shell.yml)
+[![Shell checks](https://img.shields.io/github/actions/workflow/status/itkrivoshei/linux-networking-shell-basics/shell.yml?branch=master&style=flat-square&label=shell%20checks&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/linux-networking-shell-basics/actions/workflows/shell.yml)
+[![Bash](https://img.shields.io/badge/Bash-scripts-4eaa25?style=flat-square&logo=gnubash&logoColor=white)](scripting)
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square)](LICENSE)
-[![Shell](https://img.shields.io/badge/shell-Bash-lightgrey?style=flat-square)](https://www.gnu.org/software/bash/)
 
-Archived UNIX/Linux networking, system administration, and shell scripting exercises from the 42 School / School 21 curriculum.
+UNIX/Linux command collection for networking lookups, system inspection, and a few Bash utilities.
 
-## Stack
+## Repository Areas
 
-- Bash
-- UNIX/Linux command-line tools
-- Basic networking utilities: `ifconfig`, `netstat`, `arp`, `nslookup`, `host`, `whois`, `traceroute`
+| Directory | Contents |
+| --- | --- |
+| `network/` | Commands around interfaces, routing, DNS, ARP, traceroute, and services |
+| `system/` | System information, users, processes, packages, paths, and permissions |
+| `scripting/` | Bash scripts plus an interactive menu for browsing/running items |
 
-## Scope
-
-```txt
-network/    Networking command exercises
-system/     System administration command exercises
-scripting/  Small Bash scripts and an interactive exercise menu
-```
-
-The repository is kept as historical learning material. Some commands reflect the original bootcamp environment and may be macOS/BSD-specific or outdated on modern Linux systems.
-
-## Install
-
-No package installation is required.
-
-Clone the repository:
-
-```bash
-git clone https://github.com/itkrivoshei/linux-networking-shell-basics.git
-cd linux-networking-shell-basics
-```
+Some commands reflect BSD/macOS style output (`ifconfig en0`, `netstat -nr`) and may need adjustment on a modern Linux host.
 
 ## Run
 
-Most files are small command exercises and can be inspected directly:
+Inspect a command file:
 
 ```bash
-cat network/01
+cat network/04
 cat system/01
-cat scripting/01
 ```
 
-Run the interactive menu:
+Run the menu:
 
 ```bash
 cd scripting
 ./03
 ```
 
-Run an individual script:
+Run the user listing script:
 
 ```bash
 cd scripting
 ./01
 ```
 
-`scripting/02` can delete local users. It is blocked by default and should not be run on a real system without review. To run it intentionally:
+`scripting/02` can delete local users. It is blocked by default and requires an explicit opt-in:
 
 ```bash
 cd scripting
 ALLOW_USER_DELETE=1 ./02
 ```
 
-## Verify
+Review it before running on any real machine.
 
-Check Bash syntax locally:
+## Check Syntax
 
 ```bash
-bash -n scripting/01 scripting/02 scripting/03
+bash -n network/* system/* scripting/*
 ```
 
-The repository also includes a GitHub Actions workflow that runs Bash syntax checks for files under `network/`, `system/`, and `scripting/`.
+The GitHub Actions workflow runs Bash syntax validation for all files under `network/`, `system/`, and `scripting/`.
 
 ## License
 
-Licensed under the [GPL-3.0 License](LICENSE).
+[GPL-3.0](LICENSE)
